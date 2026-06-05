@@ -4,10 +4,18 @@ import { SubmitButton } from './submit';
 
 function App() {
   return (
-    <div>
-      <PipelineToolbar />
-      <PipelineUI />
-      <SubmitButton />
+    <div
+      style={{
+        background: "#1C1C1C",
+        minHeight: "100vh",
+        padding: "20px",
+      }}
+    >
+      <div>
+        <PipelineToolbar />
+        <PipelineUI />
+        <SubmitButton />
+      </div>
     </div>
   );
 }

@@ -4,14 +4,18 @@
 
 import { useState, useRef, useCallback } from 'react';
 import ReactFlow, { Controls, Background, MiniMap } from 'reactflow';
+import "reactflow/dist/style.css";
 import { useStore } from './store';
 import { shallow } from 'zustand/shallow';
 import { InputNode } from './nodes/inputNode';
 import { LLMNode } from './nodes/llmNode';
 import { OutputNode } from './nodes/outputNode';
 import { TextNode } from './nodes/textNode';
-
-import 'reactflow/dist/style.css';
+import { ApiNode } from './nodes/apiNode';
+import { DelayNode } from './nodes/delayNode';
+import { DatabaseNode } from './nodes/databaseNode';
+import { EmailNode } from './nodes/emailNode';
+import { ConditionNode } from './nodes/conditionNode';
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -20,6 +24,11 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
+  api: ApiNode,
+  condition: ConditionNode,
+  email: EmailNode,
+  delay: DelayNode,
+  database: DatabaseNode,
 };
 
 const selector = (state) => ({
@@ -75,6 +84,7 @@ export const PipelineUI = () => {
               type,
               position,
               data: getInitNodeData(nodeID, type),
+              selectable: true,
             };
       
             addNode(newNode);
@@ -89,27 +99,50 @@ export const PipelineUI = () => {
     }, []);
 
     return (
-        <>
-        <div ref={reactFlowWrapper} style={{width: '100wv', height: '70vh'}}>
-            <ReactFlow
-                nodes={nodes}
-                edges={edges}
-                onNodesChange={onNodesChange}
-                onEdgesChange={onEdgesChange}
-                onConnect={onConnect}
-                onDrop={onDrop}
-                onDragOver={onDragOver}
-                onInit={setReactFlowInstance}
-                nodeTypes={nodeTypes}
-                proOptions={proOptions}
-                snapGrid={[gridSize, gridSize]}
-                connectionLineType='smoothstep'
-            >
-                <Background color="#aaa" gap={gridSize} />
-                <Controls />
-                <MiniMap />
-            </ReactFlow>
+      <>
+        <div
+          ref={reactFlowWrapper}
+          style={{
+            width: "100%",
+            height: "75vh",
+
+            background: "#E5E5E5",
+
+            borderRadius: "24px",
+
+            overflow: "hidden",
+
+            boxShadow: "0 15px 50px rgba(40,44,45,.12)",
+          }}
+        >
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            onInit={setReactFlowInstance}
+            nodeTypes={nodeTypes}
+            proOptions={proOptions}
+            snapGrid={[gridSize, gridSize]}
+            connectionLineType="smoothstep"
+            deleteKeyCode={["Delete", "Backspace"]}
+          >
+            <Background color="#1C1C1C" gap={20} />
+            <Controls />
+            <MiniMap
+              nodeColor={() => "#1c1c1c"}
+              style={{
+                background: "#fff",
+                borderRadius: "16px",
+                overflow: "hidden",
+                boxShadow: "0 8px 20px rgba(23,31,34,.25)",
+              }}
+            />
+          </ReactFlow>
         </div>
-        </>
-    )
+      </>
+    );
 }

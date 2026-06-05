@@ -1,11 +1,13 @@
 // outputNode.js
 
 import { useState } from 'react';
-import { Handle, Position } from 'reactflow';
+import { Position } from 'reactflow';
+import { BaseNode } from './baseNode';
+import { labelStyle, inputStyle } from "../nodeStyles";
 
 export const OutputNode = ({ id, data }) => {
   const [currName, setCurrName] = useState(data?.outputName || id.replace('customOutput-', 'output_'));
-  const [outputType, setOutputType] = useState(data.outputType || 'Text');
+  const [outputType, setOutputType] = useState(data?.outputType || 'Text');
 
   const handleNameChange = (e) => {
     setCurrName(e.target.value);
@@ -15,33 +17,57 @@ export const OutputNode = ({ id, data }) => {
     setOutputType(e.target.value);
   };
 
+  const handles = [
+    {
+      type:"target",
+      position: Position.Left,
+      id:`${id}-value`,
+    },
+  ];
   return (
-    <div style={{width: 200, height: 80, border: '1px solid black'}}>
-      <Handle
-        type="target"
-        position={Position.Left}
-        id={`${id}-value`}
-      />
-      <div>
-        <span>Output</span>
-      </div>
-      <div>
-        <label>
-          Name:
-          <input 
-            type="text" 
-            value={currName} 
-            onChange={handleNameChange} 
+  //   <BaseNode 
+  //     title="output"
+  //     handles ={handles}
+  //   >
+  //     <label>
+  //       Name: <input value ={currName} onChange = {(e) => setCurrName(e.target.value)}/>
+  //     </label>
+  //     <br />
+  //     <label>
+  //       Type:
+  //       <select value ={outputType} onChange = {(e) => setOutputType(e.target.value)}>
+  //         <option value="Text">Text</option>
+  //         <option value="Image">Image</option>
+  //       </select>
+  //     </label>
+  //   </BaseNode>
+  // );
+
+      <BaseNode title="Output" handles={handles}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+        <div>
+          <label style={labelStyle}>Name</label>
+
+          <input
+            value={currName}
+            onChange={(e) => setCurrName(e.target.value)}
+            style={inputStyle}
           />
-        </label>
-        <label>
-          Type:
-          <select value={outputType} onChange={handleTypeChange}>
+        </div>
+
+        <div>
+          <label style={labelStyle}>Type</label>
+
+          <select
+            value={outputType}
+            onChange={(e) => setOutputType(e.target.value)}
+            style={inputStyle}
+          >
             <option value="Text">Text</option>
-            <option value="File">Image</option>
+            <option value="Image">Image</option>
           </select>
-        </label>
+        </div>
       </div>
-    </div>
+    </BaseNode>
   );
-}
+};
