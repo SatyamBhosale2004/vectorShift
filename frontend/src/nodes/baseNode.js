@@ -3,14 +3,15 @@ import {Handle} from "reactflow";
 export const BaseNode = ({
     title,
     handles,
-    children
+    children,
+    minHeight = 140
 }) => {
 
     return (
       <div
         style={{
           width: 260,
-          minHeight: 120,
+          minHeight: minHeight,
           background: "#ffffff",
           border: "1px solid #e2e8f0",
           padding: 10,

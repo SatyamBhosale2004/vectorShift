@@ -6,6 +6,12 @@ import { BaseNode } from './baseNode';
 import { labelStyle, inputStyle } from "../nodeStyles";
 export const TextNode = ({ id, data }) => {
   const [currText, setCurrText] = useState(data?.text || '{{input}}');
+  const variables = currText.match(/{{(.*?)}}/g) || [];
+  const parsedVariables = variables.map((variables) => 
+    variables
+  .replace("{{","")
+  .replace("}}","")
+);
 
   const handleTextChange = (e) => {
     setCurrText(e.target.value);
@@ -17,33 +23,65 @@ export const TextNode = ({ id, data }) => {
       position: Position.Right,
       id:`${id}-output`
     },
+    ...parsedVariables.map(
+      (variable,index) => ({
+        type: "target",
+        position: Position.Left,
+        id:`${id}-${variable}`,
+
+        style: {
+          top:
+            60 + index * 30,
+        },
+      })
+    ),
   ];
 
   return (
-  //   <BaseNode 
-  //     title="Text"
-  //     handles ={handles}
-  //   >
-  //     <label>
-  //       Text: <input value={currText} onChange = {(e) => setCurrText(e.target.value)}/>
-  //     </label>
-  //   </BaseNode>
-  // );
-
-      <BaseNode title="Text" handles={handles}>
+      <BaseNode title="Text" handles={handles} minHeight={160 + parsedVariables.length * 30}> 
       <div>
-        <label style={labelStyle}>Text</label>
+        <label style={{
+          ...labelStyle,
+          display: "block",
+          marginBottom: "8px",
+          }}>Text</label>
 
         <textarea
           value={currText}
           onChange={(e) => setCurrText(e.target.value)}
-          rows={4}
+          rows={
+            Math.max(
+              4,
+              currText.split("\n").length
+            )
+          }
           style={{
             ...inputStyle,
             resize: "none",
+            marginTop: "8px",
           }}
         />
       </div>
+      {parsedVariables.map(
+        (variable, index) => (
+          <div 
+            key = {variable}
+            style = {{
+              position: "absolute",
+              left: "-80px",
+              top: 54 + index * 34,
+
+              fonstSize: "12px",
+              color: "1c1c1c",
+              fontWeight: "11px",
+              width:"60px",
+              textAlign: "right",
+            }}
+          >
+            {variable}
+          </div>
+        )
+      )}
     </BaseNode>
   );
 };
