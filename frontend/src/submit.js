@@ -1,6 +1,36 @@
 // submit.js
-
+import { useStore } from "./store";
 export const SubmitButton = () => {
+
+  const nodes = useStore((state) => state.nodes);
+  const edges = useStore((state) => state.edges);
+  const setResult = useStore((state) => state.setResult);
+  const handleSubmit = async () => {
+    try {
+
+      const response = await fetch(
+        "http://localhost:8000/pipelines/parse",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            nodes,
+            edges,
+          }),
+        }
+      );
+
+      const result = await response.json();
+      setResult(result);
+    } catch (error) {
+      console.error(error);
+      alert("Backend connection failed");
+    }
+  };
 
     return (
       <div
@@ -12,6 +42,7 @@ export const SubmitButton = () => {
         }}
       >
         <button
+          onClick={handleSubmit}
           style={{
             background: "#1C1C1C",
             color: "#fff",

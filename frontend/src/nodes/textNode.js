@@ -48,7 +48,7 @@ export const TextNode = ({ id, data }) => {
 
         <textarea
           value={currText}
-          onChange={(e) => setCurrText(e.target.value)}
+          onChange={handleTextChange}
           rows={
             Math.max(
               4,
@@ -68,13 +68,13 @@ export const TextNode = ({ id, data }) => {
             key = {variable}
             style = {{
               position: "absolute",
-              left: "-80px",
-              top: 54 + index * 34,
+              left: "-90px",
+              top: 58 + index * 34,
 
-              fonstSize: "12px",
-              color: "1c1c1c",
-              fontWeight: "11px",
-              width:"60px",
+              fontSize: "12px",
+              color: "#1c1c1c",
+              fontWeight: "600",
+              width:"50px",
               textAlign: "right",
             }}
           >
