@@ -1,7 +1,7 @@
 // llmNode.js
 import { Position } from 'reactflow';
 import { BaseNode } from './baseNode';
-export const LLMNode = ({ id, data }) => {
+export const LLMNode = ({ id, selected }) => {
 
   const handles = [
     {
@@ -24,7 +24,7 @@ export const LLMNode = ({ id, data }) => {
   ];
 
   return (
-    <BaseNode title="LLM" handles={handles}>
+    <BaseNode title="LLM" handles={handles} selected={selected}>
       <div
         style={{
           color: "#64748B",

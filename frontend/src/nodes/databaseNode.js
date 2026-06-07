@@ -4,7 +4,7 @@ import { useState } from "react";
 import { labelStyle, inputStyle } from "../nodeStyles";
 
 
-export const DatabaseNode = ({id}) => {
+export const DatabaseNode = ({id,selected}) => {
     const [table,setTable] = useState("");  
 
     const handles = [
@@ -21,7 +21,7 @@ export const DatabaseNode = ({id}) => {
     ];
 
     return (
-      <BaseNode title="Database" handles={handles}>
+      <BaseNode title="Database" handles={handles} selected={selected}>
         <label style={labelStyle}>Table</label>
 
         <input

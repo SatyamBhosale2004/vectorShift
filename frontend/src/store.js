@@ -11,10 +11,10 @@ import {
 export const useStore = create((set, get) => ({
   nodes: [],
   edges: [],
-  nodeIds: {},
+  nodeIDs: {},
   result: null,
   getNodeID: (type) => {
-    const newIDs = { ...get().nodeIds };
+    const newIDs = { ...get().nodeIDs };
     if (newIDs[type] === undefined) {
       newIDs[type] = 0;
     }

@@ -3,7 +3,7 @@ import { BaseNode } from "./baseNode";
 import { useState } from "react";
 import { labelStyle, inputStyle } from "../nodeStyles";
 
-export const DelayNode = ({id}) => {
+export const DelayNode = ({id,selected}) => {
     const [seconds, setSeconds] = useState(5);
     const handles = [
         {
@@ -18,7 +18,7 @@ export const DelayNode = ({id}) => {
         },
     ];
     return (
-      <BaseNode title="Delay" handles={handles}>
+      <BaseNode title="Delay" handles={handles} selected={selected}>
         <label style={labelStyle}>Seconds</label>
 
         <input

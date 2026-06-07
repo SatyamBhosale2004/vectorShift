@@ -3,7 +3,7 @@ import { BaseNode } from "./baseNode";
 import { useState } from "react";
 import { labelStyle, inputStyle } from "../nodeStyles";
 
-export const ApiNode = ({id}) => {
+export const ApiNode = ({id,selected}) => {
 
     const [url, setUrl] = useState("");
     const [method, setMethod] = useState("GET");
@@ -22,7 +22,7 @@ export const ApiNode = ({id}) => {
     ];
 
     return (
-      <BaseNode title="API" handles={handles}>
+      <BaseNode title="API" handles={handles} selected={selected}>
         <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
           <div>
             <label style={labelStyle}>URL</label>

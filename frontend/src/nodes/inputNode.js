@@ -5,7 +5,7 @@ import { Position } from 'reactflow';
 import { BaseNode } from './baseNode';
 
 
-export const InputNode = ({ id, data }) => {
+export const InputNode = ({ id, data, selected }) => {
   const [currName, setCurrName] = useState(data?.inputName || id.replace('customInput-', 'input_'));
   const [inputType, setInputType] = useState(data?.inputType || 'Text');
   const handleNameChange = (e) => {
@@ -22,7 +22,7 @@ export const InputNode = ({ id, data }) => {
     },
   ];
   return (
-    <BaseNode title="Input" handles={handles}>
+    <BaseNode title="Input" handles={handles} selected={selected}>
       <div
         style={{
           display: "flex",

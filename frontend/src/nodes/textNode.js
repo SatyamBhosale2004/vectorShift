@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Position } from 'reactflow';
 import { BaseNode } from './baseNode';
 import { labelStyle, inputStyle } from "../nodeStyles";
-export const TextNode = ({ id, data }) => {
+export const TextNode = ({ id, data, selected }) => {
   const [currText, setCurrText] = useState(data?.text || '{{input}}');
   const variables = currText.match(/{{(.*?)}}/g) || [];
   const parsedVariables = variables.map((variables) => 
@@ -38,7 +38,7 @@ export const TextNode = ({ id, data }) => {
   ];
 
   return (
-      <BaseNode title="Text" handles={handles} minHeight={160 + parsedVariables.length * 30}> 
+      <BaseNode title="Text" handles={handles} minHeight={160 + parsedVariables.length * 30} selected={selected}> 
       <div>
         <label style={{
           ...labelStyle,

@@ -2,7 +2,7 @@ import { Position } from "reactflow";
 import { useState } from "react";
 import { BaseNode } from "./baseNode";
 import { labelStyle, inputStyle } from "../nodeStyles";
-export const EmailNode = ({id}) => {
+export const EmailNode = ({id,selected}) => {
     const [recipient, setRecipient] = useState("");
     const handles = [
         {
@@ -17,7 +17,7 @@ export const EmailNode = ({id}) => {
         },
     ];
     return (
-      <BaseNode title="Email" handles={handles}>
+      <BaseNode title="Email" handles={handles} selected={selected}>
         <label style={labelStyle}>
           To:
           <input

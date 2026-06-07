@@ -3,7 +3,7 @@ import { BaseNode } from './baseNode';
 
 
 
-export const ConditionNode = ({id}) => {
+export const ConditionNode = ({id,selected}) => {
     const handles = [
         {
             type: "target",
@@ -25,7 +25,7 @@ export const ConditionNode = ({id}) => {
     ];
 
     return (
-      <BaseNode title="Condition" handles={handles}>
+      <BaseNode title="Condition" handles={handles} selected={selected}>
         <div
           style={{
             textAlign: "center",
